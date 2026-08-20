@@ -23,7 +23,7 @@ public class YahtzeeProcedural {
         System.out.println("Quel(s) dé(s) souhaiteriez vous relancer ? ");
         int n = reader.nextInt();
     }
-
+//mode d'affichage
 
     //méthode d'affichage des dés au premier lancer
     public static void afficherDes(int []des ) {
