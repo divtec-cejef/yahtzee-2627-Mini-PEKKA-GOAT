@@ -10,6 +10,36 @@ public class YahtzeeProcedural {
     static int roll() {
         return (int) (Math.random() * sideCount) + 1;
     }
+
+    // fonction qui demande les relances, récupère la saisie et retourne un tableau d'indices
+    // retourne null si la saisie est vide ou vaut "0" (signal d'arrêt)
+    static int[] demanderRelances(Scanner reader) {
+        System.out.println("Quel(s) dé(s) souhaiteriez vous relancer ? (Séparez les d'un espace, ou laissez vide / tapez 0 pour arrêter) ");
+        String Saisie = reader.nextLine().trim();
+
+        if (Saisie.isEmpty() || Saisie.equals("0")) {
+            return null;
+        }
+
+        String[] tokens = Saisie.split(" ");
+        int[] indices = new int[tokens.length];
+        for (int i = 0; i < tokens.length; i++) {
+            indices[i] = Integer.parseInt(tokens[i]) - 1;
+        }
+        return indices;
+    }
+
+    // méthode qui relance les dés aux indices donnés
+    static void relancerDes(int[] des, int[] indices) {
+        for (int i = 0; i < indices.length; i++) {
+            int indexDe = indices[i];
+            if (indexDe >= 0 && indexDe < des.length) {
+                des[indexDe] = roll();
+                System.out.println("Dé " + (indexDe + 1) + " relancé : " + des[indexDe]);
+            }
+        }
+    }
+
     // Point d'entrée du programme
     public static void main(String[] args) {
         int[] des = new int[5];
@@ -19,29 +49,23 @@ public class YahtzeeProcedural {
         afficherDes(des);
 
         Scanner reader = new Scanner(System.in);
+        boolean stop = true;
+        // Boucle des relances possibles (max 2 relances = 3 lancers au total par manche)
+        for (int compteurManche = 0; compteurManche < 2 && stop; compteurManche++) {
 
-        // Boucle des 3 lancers possibles par manche
-        for (int compteurManche = 0; compteurManche < 3; compteurManche++) {
+            System.out.println("\n Relance " + (compteurManche + 1) + " sur 2");
+            int[] deRelancer = demanderRelances(reader);
 
-            System.out.println("\n--- Lancer " + (compteurManche + 1) + " sur 3 ---");
-            System.out.println("Quel(s) dé(s) souhaiteriez vous relancer ? (Séparez les d'un espace) ");
-            int n = reader.nextInt();
-            String Saisie = reader.nextLine();
+            if (deRelancer == null) {
+                System.out.println("Aucune relance demandée, fin de la manche.");
+                stop = false;
+            } else {
+                System.out.println("Vous souhaitez relancer " + deRelancer.length + " dé(s) :");
+                relancerDes(des, deRelancer);
 
-            String[] deRelancer = (n + " " + Saisie.trim()).trim().split(" ");
-
-            System.out.println("Vous souhaitez relancer " + deRelancer.length + " dé(s) :");
-
-            for (int i = 0; i < deRelancer.length; i++) {
-                int indexDe = Integer.parseInt(deRelancer[i]) - 1;
-                if (indexDe >= 0 && indexDe < des.length) {
-                    des[indexDe] = roll();
-                    System.out.println("Dé " + (indexDe + 1) + " relancé : " + des[indexDe]);
-                }
+                System.out.println("\nNouveau lancer complet :");
+                afficherDes(des);
             }
-
-            System.out.println("\nNouveau lancer complet :");
-            afficherDes(des);
         }
     }
 
