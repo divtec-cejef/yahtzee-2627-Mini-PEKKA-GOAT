@@ -32,10 +32,9 @@ public class YahtzeeProcedural {
     // méthode qui relance les dés aux indices donnés
     static void relancerDes(int[] des, int[] indices) {
         for (int i = 0; i < indices.length; i++) {
-            int indexDe = indices[i];
-            if (indexDe >= 0 && indexDe < des.length) {
-                des[indexDe] = roll();
-                System.out.println("Dé " + (indexDe + 1) + " relancé : " + des[indexDe]);
+            if (indices[i] >= 0 && indices[i] < des.length) {
+                des[indices[i]] = roll();
+                System.out.println("Dé " + (indices[i] + 1) + " relancé : " + des[indices[i]]);
             }
         }
     }
