@@ -22,7 +22,7 @@ Marquer **le maximum de points** après **5 manches** de jeu, en lançant 5 dés
 
 1. Le joueur lance **5 dés**.
 2. Il peut **relancer certains dés**, jusqu’à un total de **3 lancers maximum** (1er + 2 relances).
-3. Après ses lancers, il choisit **UNE combinaison** dans laquelle inscrire son résultat.
+dddddddddddaklwkl3. Après ses lancers, il choisit **UNE combinaison** dans laquelle inscrire son résultat.
    > ⚠️ Chaque combinaison n’est choisissable **qu’une seule fois par partie**.
 4. Le score est ajouté au **total général**.
 5. Après **5 manches**, on annonce le **score final**.
@@ -75,7 +75,7 @@ Marquer **le maximum de points** après **5 manches** de jeu, en lançant 5 dés
 
 ---
 
-### 🟦 JALON 4 — Choix unique de combinaison
+### 🟦 JALON 4 — Choix unique de combinaisonk
 
 🎯 *Objectif : mémoriser les combinaisons déjà jouées*
 - Afficher uniquement les combinaisons encore disponibles
