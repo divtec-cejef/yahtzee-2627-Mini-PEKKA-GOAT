@@ -15,13 +15,13 @@ public class YahtzeeProcedural {
     // retourne null si la saisie est vide ou vaut "0" (signal d'arrêt)
     static int[] demanderRelances(Scanner reader) {
         System.out.println("Quel(s) dé(s) souhaiteriez vous relancer ? (Séparez les d'un espace, ou laissez vide / tapez 0 pour arrêter) ");
-        String Saisie = reader.nextLine().trim();
+        String saisie = reader.nextLine().trim();
 
-        if (Saisie.isEmpty() || Saisie.equals("0")) {
+        if (saisie.isEmpty() || saisie.equals("0")) {
             return null;
         }
 
-        String[] tokens = Saisie.split(" ");
+        String[] tokens = saisie.split("\\s+");
         int[] indices = new int[tokens.length];
         for (int i = 0; i < tokens.length; i++) {
             indices[i] = Integer.parseInt(tokens[i]) - 1;
@@ -48,16 +48,16 @@ public class YahtzeeProcedural {
         afficherDes(des);
 
         Scanner reader = new Scanner(System.in);
-        boolean stop = true;
+        boolean continuer = true;
         // Boucle des relances possibles (max 2 relances = 3 lancers au total par manche)
-        for (int compteurManche = 0; compteurManche < 2 && stop; compteurManche++) {
+        for (int compteurRelance = 0; compteurRelance < 2 && continuer; compteurRelance++) {
 
-            System.out.println("\n Relance " + (compteurManche + 1) + " sur 2");
+            System.out.println("\n Relance " + (compteurRelance + 1) + " sur 2");
             int[] deRelancer = demanderRelances(reader);
 
             if (deRelancer == null) {
                 System.out.println("Aucune relance demandée, fin de la manche.");
-                stop = false;
+                continuer = false;
             } else {
                 System.out.println("Vous souhaitez relancer " + deRelancer.length + " dé(s) :");
                 relancerDes(des, deRelancer);
@@ -69,7 +69,6 @@ public class YahtzeeProcedural {
 
         afficherScores(des);
     }
-
 
     //méthode d'affichage des dés au premier lancer
     public static void afficherDes(int []des ) {
@@ -98,10 +97,11 @@ public class YahtzeeProcedural {
     }
 
     // fonction qui calcule le score de la combinaison "Deux paires" (2x2 dés identiques différents -> 10 pts, sinon 0)
+    // un brelan compte comme une paire : un Full House (ex: 3 3 3 5 5) contient donc bien deux paires
     static int calculerDeuxPaires(int[] occurrences) {
         int nombrePaires = 0;
         for (int face = 1; face <= sideCount; face++) {
-            if (occurrences[face] == 2) {
+            if (occurrences[face] >= 2) {
                 nombrePaires++;
             }
         }
